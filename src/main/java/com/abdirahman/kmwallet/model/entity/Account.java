@@ -38,6 +38,12 @@ public class Account {
         this.accountType = accountType;
     }
 
+    public Account(String accountId, String customerId, String accountType) {
+        this.accountId = accountId;
+        this.customerId = customerId;
+        this.accountType = accountType;
+    }
+
     public String getAccountId() {
         return accountId;
     }
