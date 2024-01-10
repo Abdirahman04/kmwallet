@@ -64,5 +64,9 @@ public class TransactionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @PostMapping("/transfer/{id}")
+    public ResponseEntity<String> transfer(@PathVariable String id, @RequestBody Transaction transaction) {
+        transactionService.transfer(id, transaction);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
