@@ -36,15 +36,15 @@ public class TransactionService {
         else return transaction.get();
     }
 
-    public List<Transaction> getAllTransactionsByAccount(String id) {
-        Optional<List<Transaction>> transactionList = transactionRepository.findByAccountId(id);
-        if (transactionList.isEmpty()) throw new RuntimeException("No account found by id {"+id+"}");
+    public List<Transaction> getAllTransactionsByAccount(String accountId) {
+        Optional<List<Transaction>> transactionList = transactionRepository.findByAccountId(accountId);
+        if (transactionList.isEmpty()) throw new RuntimeException("No account found by id {"+accountId+"}");
         else return transactionList.get();
     }
 
-    public List<Transaction> getAllTransactionsByTarget(String id) {
-        Optional<List<Transaction>> transactionList = transactionRepository.findByTargetAccount(id);
-        if (transactionList.isEmpty()) throw new RuntimeException("No account found by id {"+id+"}");
+    public List<Transaction> getAllTransactionsByTarget(String targetAccount) {
+        Optional<List<Transaction>> transactionList = transactionRepository.findByTargetAccount(targetAccount);
+        if (transactionList.isEmpty()) throw new RuntimeException("No account found by id {"+targetAccount+"}");
         else return transactionList.get();
     }
 
