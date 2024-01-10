@@ -58,5 +58,11 @@ public class TransactionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/withdraw/{id}")
+    public ResponseEntity<String> withdraw(@PathVariable String id, @RequestBody Transaction transaction) {
+        transactionService.withdraw(id, transaction);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }
