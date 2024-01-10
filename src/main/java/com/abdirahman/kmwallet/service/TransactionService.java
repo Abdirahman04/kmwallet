@@ -4,6 +4,7 @@ import com.abdirahman.kmwallet.model.entity.Account;
 import com.abdirahman.kmwallet.model.entity.Transaction;
 import com.abdirahman.kmwallet.repository.AccountRepository;
 import com.abdirahman.kmwallet.repository.TransactionRepository;
+import com.abdirahman.kmwallet.validation.TransactionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +60,7 @@ public class TransactionService {
     }
 
     public void deposit(String accountId, Transaction transaction) {
+        TransactionValidation.depositValidation(transaction);
         Optional<Account> accountOptional = accountRepository.findById(accountId);
         if (accountOptional.isEmpty()) throw new RuntimeException("No account found for id {"+accountId+"}");
         else {
@@ -75,6 +77,7 @@ public class TransactionService {
         else {
             addTransaction(transaction);
             Account account = accountOptional.get();
+            TransactionValidation.withdrawValidation(account, transaction);
             account.setBalance(account.getBalance() - transaction.getBalance());
             accountRepository.save(account);
         }
@@ -90,6 +93,7 @@ public class TransactionService {
                 addTransaction(transaction);
 
                 Account account = accountOptional.get();
+                TransactionValidation.transferValidation(account, transaction);
                 account.setBalance(account.getBalance() - transaction.getBalance());
 
                 Account target = targetAccount.get();

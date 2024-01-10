@@ -2,6 +2,7 @@ package com.abdirahman.kmwallet.service;
 
 import com.abdirahman.kmwallet.model.entity.Customer;
 import com.abdirahman.kmwallet.repository.CustomerRepository;
+import com.abdirahman.kmwallet.validation.CustomerValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class CustomerService {
     }
 
     public void addCustomer(Customer customer) {
+        CustomerValidation.validateCustomer(customer);
         customerRepository.save(customer);
     }
 

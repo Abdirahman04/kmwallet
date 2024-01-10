@@ -1,7 +1,10 @@
 package com.abdirahman.kmwallet.service;
 
 import com.abdirahman.kmwallet.model.entity.Account;
+import com.abdirahman.kmwallet.model.entity.Customer;
 import com.abdirahman.kmwallet.repository.AccountRepository;
+import com.abdirahman.kmwallet.repository.CustomerRepository;
+import com.abdirahman.kmwallet.validation.AccountValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,16 +16,21 @@ import java.util.Optional;
 @Transactional
 public class AccountService {
     AccountRepository accountRepository;
+    CustomerRepository customerRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, CustomerRepository customerRepository) {
         this.accountRepository = accountRepository;
+        this.customerRepository = customerRepository;
     }
 
     public AccountService() {
     }
 
     public void addAccount(Account account) {
+        Optional<Customer> customerOptional = customerRepository.findById(account.getCustomerId());
+        if (customerOptional.isEmpty()) throw new RuntimeException("Customer id not found");
+        AccountValidation.validateAccount(account);
         accountRepository.save(account);
     }
 
