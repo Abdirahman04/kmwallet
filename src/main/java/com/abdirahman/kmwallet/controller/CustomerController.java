@@ -3,7 +3,6 @@ package com.abdirahman.kmwallet.controller;
 import com.abdirahman.kmwallet.model.entity.Customer;
 import com.abdirahman.kmwallet.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +31,12 @@ public class CustomerController {
     @GetMapping("/customer/{id}")
     public ResponseEntity<Customer> getSingleCustomer(@PathVariable String id) {
         Customer customer = customerService.getCustomerById(id);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping("customer/email/{email}")
+    public ResponseEntity<Customer> getByEmail(@PathVariable String email) {
+        Customer customer = customerService.getCustomerByEmail(email);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 

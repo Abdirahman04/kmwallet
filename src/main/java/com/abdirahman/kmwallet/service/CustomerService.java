@@ -34,6 +34,12 @@ public class CustomerService {
         else return customer.get();
     }
 
+    public Customer getCustomerByEmail(String email) {
+        Optional<Customer> customer = customerRepository.findByEmail(email);
+        if (customer.isEmpty()) throw new RuntimeException("No customer found for email {"+email+"}");
+        else return customer.get();
+    }
+
     public void addCustomer(Customer customer) {
         CustomerValidation.validateCustomer(customer);
         customerRepository.save(customer);
