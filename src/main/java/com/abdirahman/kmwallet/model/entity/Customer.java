@@ -32,6 +32,9 @@ public class Customer {
     @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL )
     private List<Account> accounts;
 
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL )
+    private List<CommunityMessage> communityMessageList;
+
     public Customer() {
     }
 
@@ -106,5 +109,13 @@ public class Customer {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<CommunityMessage> getCommunityMessageList() {
+        return communityMessageList;
+    }
+
+    public void setCommunityMessageList(List<CommunityMessage> communityMessageList) {
+        this.communityMessageList = communityMessageList;
     }
 }

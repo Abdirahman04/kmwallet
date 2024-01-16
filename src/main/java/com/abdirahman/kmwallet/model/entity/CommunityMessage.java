@@ -18,9 +18,14 @@ public class CommunityMessage {
     @Column(name = "timestamp", nullable = false)
     private LocalDateTime timestamp;
 
-    public CommunityMessage(String message, LocalDateTime timestamp) {
+    @Column(nullable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    private String customerId;
+
+    public CommunityMessage(String message, LocalDateTime timestamp, String customerId) {
         this.message = message;
         this.timestamp = timestamp;
+        this.customerId = customerId;
     }
 
     public CommunityMessage() {
@@ -50,12 +55,21 @@ public class CommunityMessage {
         this.timestamp = timestamp;
     }
 
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public String toString() {
         return "CommunityMessage{" +
                 "id=" + id +
                 ", message='" + message + '\'' +
                 ", timestamp=" + timestamp +
+                ", customerId='" + customerId + '\'' +
                 '}';
     }
 }
