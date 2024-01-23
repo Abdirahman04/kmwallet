@@ -27,11 +27,11 @@ public class AccountService {
     public AccountService() {
     }
 
-    public void addAccount(Account account) {
+    public Account addAccount(Account account) {
         Optional<Customer> customerOptional = customerRepository.findById(account.getCustomerId());
         if (customerOptional.isEmpty()) throw new RuntimeException("Customer id not found");
         AccountValidation.validateAccount(account);
-        accountRepository.save(account);
+        return accountRepository.save(account);
     }
 
     public List<Account> getAllAccounts() {

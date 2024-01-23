@@ -55,43 +55,40 @@ public class TransactionService {
         else return transactionList.get();
     }
 
-    public void addTransaction(Transaction transaction) {
-        transactionRepository.save(transaction);
+    public Transaction addTransaction(Transaction transaction) { return transactionRepository.save(transaction);
     }
 
-    public void deposit(String accountId, Transaction transaction) {
+    public Transaction deposit(String accountId, Transaction transaction) {
         TransactionValidation.depositValidation(transaction);
         Optional<Account> accountOptional = accountRepository.findById(accountId);
         if (accountOptional.isEmpty()) throw new RuntimeException("No account found for id {"+accountId+"}");
         else {
-            addTransaction(transaction);
             Account account = accountOptional.get();
             account.setBalance(account.getBalance() + transaction.getBalance());
             accountRepository.save(account);
+            return addTransaction(transaction);
         }
     }
 
-    public void withdraw(String accountId, Transaction transaction) {
+    public Transaction withdraw(String accountId, Transaction transaction) {
         Optional<Account> accountOptional = accountRepository.findById(accountId);
         if (accountOptional.isEmpty()) throw new RuntimeException("No account found for id {"+accountId+"}");
         else {
-            addTransaction(transaction);
             Account account = accountOptional.get();
             TransactionValidation.withdrawValidation(account, transaction);
             account.setBalance(account.getBalance() - transaction.getBalance());
             accountRepository.save(account);
+            return addTransaction(transaction);
         }
     }
 
-    public void transfer(String accountId, Transaction transaction) {
+    public Transaction transfer(String accountId, Transaction transaction) {
         Optional<Account> accountOptional = accountRepository.findById(accountId);
         if (accountOptional.isEmpty()) throw new RuntimeException("No account found for id {"+accountId+"}");
         else {
             Optional<Account> targetAccount = accountRepository.findById(transaction.getTargetAccount());
             if (targetAccount.isEmpty()) throw new RuntimeException("No account found for id {"+transaction.getTargetAccount()+"}");
             else {
-                addTransaction(transaction);
-
                 Account account = accountOptional.get();
                 TransactionValidation.transferValidation(account, transaction);
                 account.setBalance(account.getBalance() - transaction.getBalance());
@@ -101,6 +98,8 @@ public class TransactionService {
 
                 accountRepository.save(account);
                 accountRepository.save(target);
+
+                return addTransaction(transaction);
             }
         }
     }

@@ -41,9 +41,9 @@ public class CustomerController {
     }
 
     @PostMapping("/customer")
-    public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
-        customerService.addCustomer(customer);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {
+        Customer customer1 = customerService.addCustomer(customer);
+        return new ResponseEntity<>(customer1, HttpStatus.OK);
     }
 
     @PutMapping("/customer/{id}")

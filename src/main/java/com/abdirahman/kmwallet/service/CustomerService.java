@@ -40,9 +40,9 @@ public class CustomerService {
         else return customer.get();
     }
 
-    public void addCustomer(Customer customer) {
+    public Customer addCustomer(Customer customer) {
         CustomerValidation.validateCustomer(customer);
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     public void updateCustomer(String id, Customer customer) {

@@ -53,20 +53,20 @@ public class TransactionController {
     }
 
     @PostMapping("/deposit/{id}")
-    public ResponseEntity<String> deposit(@PathVariable String id, @RequestBody Transaction transaction) {
-        transactionService.deposit(id, transaction);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Transaction> deposit(@PathVariable String id, @RequestBody Transaction transaction) {
+        Transaction transaction1 = transactionService.deposit(id, transaction);
+        return new ResponseEntity<>(transaction1, HttpStatus.OK);
     }
 
     @PostMapping("/withdraw/{id}")
-    public ResponseEntity<String> withdraw(@PathVariable String id, @RequestBody Transaction transaction) {
-        transactionService.withdraw(id, transaction);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Transaction> withdraw(@PathVariable String id, @RequestBody Transaction transaction) {
+        Transaction transaction1 = transactionService.withdraw(id, transaction);
+        return new ResponseEntity<>(transaction1, HttpStatus.OK);
     }
 
     @PostMapping("/transfer/{id}")
-    public ResponseEntity<String> transfer(@PathVariable String id, @RequestBody Transaction transaction) {
-        transactionService.transfer(id, transaction);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Transaction> transfer(@PathVariable String id, @RequestBody Transaction transaction) {
+        Transaction transaction1 = transactionService.transfer(id, transaction);
+        return new ResponseEntity<>(transaction1, HttpStatus.OK);
     }
 }
