@@ -47,9 +47,9 @@ public class CustomerController {
     }
 
     @PutMapping("/customer/{id}")
-    public ResponseEntity<String> updateCustomer(@PathVariable String id, @RequestBody Customer customer) {
-        customerService.updateCustomer(id, customer);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String id, @RequestBody Customer customer) {
+        Customer customer1 = customerService.updateCustomer(id, customer);
+        return new ResponseEntity<>(customer1, HttpStatus.OK);
     }
 
     @DeleteMapping("/customer/{id}")

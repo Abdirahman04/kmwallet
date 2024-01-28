@@ -45,10 +45,10 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void updateCustomer(String id, Customer customer) {
+    public Customer updateCustomer(String id, Customer customer) {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isEmpty()) throw new RuntimeException("No customer found for id {"+id+"}");
-        else customerRepository.save(customer);
+        else return customerRepository.save(customer);
     }
 
     public void deleteCustomer(String id) {
