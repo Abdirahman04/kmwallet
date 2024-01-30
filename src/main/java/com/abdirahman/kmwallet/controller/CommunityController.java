@@ -27,8 +27,8 @@ public class CommunityController {
     }
 
     @PostMapping("/community")
-    public ResponseEntity<String> addMessage(@RequestBody CommunityMessage communityMessage) {
-        communityService.addCommunityMessage(communityMessage);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CommunityMessage> addMessage(@RequestBody CommunityMessage communityMessage) {
+        CommunityMessage communityMessage1 = communityService.addCommunityMessage(communityMessage);
+        return new ResponseEntity<>(communityMessage1, HttpStatus.OK);
     }
 }

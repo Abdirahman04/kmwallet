@@ -23,7 +23,7 @@ public class CommunityService {
         return communityRepository.findAll();
     }
 
-    public void addCommunityMessage(CommunityMessage communityMessage) {
-        communityRepository.save(communityMessage);
+    public CommunityMessage addCommunityMessage(CommunityMessage communityMessage) {
+        return communityRepository.save(communityMessage);
     }
 }
